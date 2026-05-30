@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>.</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Comfortaa', sans-serif;
+      background: linear-gradient(135deg, #ffe4e8, #e0f7fa);
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      text-align: center;
+      color: #333;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.8em;
+      margin: 40px 0 20px;
+      color: #e91e63;
+    }
+
+    .question {
+      font-size: 1.6em;
+      margin: 30px 0;
+      line-height: 1.4;
+    }
+
+    .buttons {
+      margin: 50px 0;
+    }
+
+    button {
+      font-size: 1.4em;
+      padding: 18px 40px;
+      margin: 15px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    #yesBtn {
+      background: #ff4081;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: #9e9e9e;
+      color: white;
+      position: absolute;
+      transition: all 0.4s;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .success {
+      font-size: 2.5em;
+      color: #e91e63;
+      animation: pop 0.6s;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.5); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Ты пойдешь со мной гулять?(типо свидание)</h1>
+    
+    <div id="step1">
+      <p class="question">Надеюсь ты скажешь да</p>
+      <div class="buttons">
+        <button id="yesBtn">Да, конечно пойдём! ❤️</button>
+        <button id="noBtn">Неет...</button>
+      </div>
+    </div>
+
+    <div id="step2" style="display: none;">
+      <p class="success">УРАААА! Ты согласилась! 🥹💕</p>
+      <p style="font-size:1.4em; margin:30px 0;">Теперь давай выберем, когда и куда</p>
+      <button onclick="finish()" style="background:#4caf50; color:white; font-size:1.3em; padding:18px 50px;">
+        Выбрать дату и место →
+      </button>
+    </div>
+
+    <div id="step3" style="display: none;">
+      <h2>Когда пойдём?</h2>
+      <input type="date" id="dateInput" style="font-size:1.2em; padding:10px; border-radius:15px;">
+      <br><br>
+      <h2>Куда?</h2>
+      <select id="placeSelect" style="font-size:1.2em; padding:12px; border-radius:15px; width:80%;">
+        <option>1. У меня дома</option>
+        <option>2. 1 </option>
+        <option>3. У меня дома</option>
+        <option>4. 2</option>
+        <option>5. на улице (Я не выйду сразу говорю на улице жара пиздец)</option>
+      </select>
+      <br><br>
+      <button onclick="finalPage()" style="background:#e91e63; color:white; padding:18px 50px; font-size:1.4em;">
+        Подтвердить 💌
+      </button>
+    </div>
+
+    <div id="final" style="display: none;">
+      <h1 class="success">Спасибо, что сказала "Да" ❤️</h1>
+      <p style="font-size:1.5em; margin:40px 0;">
+        Жду тебя <span id="chosenDate"></span><br>
+        в <span id="chosenPlace"></span>
+      </p>
+      <p>Буду очень сильно волноваться и улыбаться как дурак 😌</p>
+      <p style="margin-top:50px; font-size:1.1em;">
+        P.S. Обычно парни пишут «пойдём гулять»...<br>
+        А я вот сайт воткнул. Надеюсь, засчитается ❤️
+      </p>
+    </div>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    let noClickCount = 0;
+
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - 150);
+      const y = Math.random() * (window.innerHeight - 100);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.textContent = ["Ой...", "Ну ладно...", "Ты серьёзно?", "Не надо :("][noClickCount % 4];
+      noBtn.style.background = '#ff4081';
+      noClickCount++;
+    });
+
+    document.getElementById('yesBtn').addEventListener('click', () => {
+      document.getElementById('step1').style.display = 'none';
+      document.getElementById('step2').style.display = 'block';
+      createHearts();
+    });
+
+    function createHearts() {
+      for(let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.textContent = '❤️';
+          heart.style.position = 'fixed';
+          heart.style.fontSize = '2em';
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.top = '100vh';
+          heart.style.transition = 'all 4s';
+          document.getElementById('hearts').appendChild(heart);
+          
+          setTimeout(() => {
+            heart.style.top = '-50px';
+            heart.style.opacity = '0';
+          }, 100);
+          
+          setTimeout(() => heart.remove(), 5000);
+        }, i * 80);
+      }
+    }
+
+    function finish() {
+      document.getElementById('step2').style.display = 'none';
+      document.getElementById('step3').style.display = 'block';
+    }
+
+    function finalPage() {
+      const date = document.getElementById('dateInput').value;
+      const place = document.getElementById('placeSelect').value;
+      
+      document.getElementById('chosenDate').textContent = date || "скоро (напиши мне дату)";
+      document.getElementById('chosenPlace').textContent = place;
+      
+      document.getElementById('step3').style.display = 'none';
+      document.getElementById('final').style.display = 'block';
+      createHearts();
+    }
+  </script>
+</body>
+</html>
