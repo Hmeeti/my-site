@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>С Днём Рождения, Папа! 🎉</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+    
+    header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      margin-bottom: 30px;
+    }
+    h1 {
+      font-size: 3.5rem;
+      color: #e91e63;
+      margin: 10px 0;
+    }
+    .subtitle { font-size: 1.5rem; color: #555; }
+
+    .hero-photo {
+      width: 100%;
+      max-height: 500px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .section {
+      background: white;
+      padding: 40px;
+      margin: 30px 0;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 15px;
+      transition: 0.4s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    button {
+      background: #e91e63;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>С Днём Рождения, Папа! 🎂</h1>
+      <p class="subtitle">Самый лучший папа на свете</p>
+    </header>
+
+    <!-- Главное фото -->
+
+    <div class="section">
+      <h2 style="text-align:center; color:#e91e63;">Дорогой папочка ❤️</h2>
+      <p style="font-size:1.3rem; line-height:1.8; text-align:center;">
+        Спасибо тебе за всё, что ты делаешь для меня. За твою силу, юмор, поддержку и любовь.<br>
+        Ты не просто папа — ты мой герой.
+      </p>
+    </div>
+
+    <!-- Галерея -->
+    <div class="section">
+      <h2 style="text-align:center;">Наши лучшие моменты</h2>
+      <div class="gallery">
+        <img src="./image/0a23223f-0410-4152-97a0-f58cd3712c14.JPG" alt="Воспоминание 1">
+        <img src="./image/c7a0811e-4e60-4176-89a1-a90337fd82a6.JPG" alt="Воспоминание 2">
+        <img src="./image/f9e5a732-98ae-41d1-8c7c-ab6c71c722d3.JPG" alt="Воспоминание 3">
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 style="text-align:center;">Почему ты лучший папа:</h2>
+      <ul style="font-size:1.3rem; line-height:2;">
+        <li>✅ Всегда поддерживаешь</li>
+        <li>✅ Умеешь шутить даже в сложные моменты</li>
+        <li>✅ Научил меня кататься на велосипеде</li>
+        <li>✅ Самый надёжный человек в мире</li>
+      </ul>
+    </div>
+
+    <div style="text-align:center;">
+      <button onclick="throwConfetti()">Запустить конфетти! 🎉</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <script>
+    function throwConfetti() {
+      confetti({
+        particleCount: 300,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+
+    // Автоматически запускаем конфетти при загрузке
+    window.onload = () => {
+      setTimeout(throwConfetti, 800);
+      setTimeout(throwConfetti, 1600);
+    };
+  </script>
+</body>
+</html>
